@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Pump_drive.cs" />
     <Compile Include="Pump_head.cs" />
+    <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

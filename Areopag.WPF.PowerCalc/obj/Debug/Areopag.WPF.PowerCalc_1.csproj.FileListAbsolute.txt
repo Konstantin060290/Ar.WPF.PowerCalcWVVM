@@ -1,0 +1,14 @@
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\bin\Debug\Areopag.WPF.PowerCalc_1.exe.config
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\bin\Debug\Areopag.WPF.PowerCalc_1.exe
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\bin\Debug\Areopag.WPF.PowerCalc_1.pdb
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1.csprojAssemblyReference.cache
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\MainWindow.g.cs
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\App.g.cs
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1_MarkupCompile.cache
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1_MarkupCompile.lref
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\MainWindow.baml
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1.g.resources
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1.Properties.Resources.resources
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1.csproj.GenerateResource.cache
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1.exe
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Debug\Areopag.WPF.PowerCalc_1.pdb

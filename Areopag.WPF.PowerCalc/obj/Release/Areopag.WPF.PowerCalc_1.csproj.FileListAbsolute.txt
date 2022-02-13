@@ -1,0 +1,16 @@
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc_1.csprojAssemblyReference.cache
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\MainWindow.g.cs
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\App.g.cs
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\MainWindow.baml
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc_1.Properties.Resources.resources
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc_1.csproj.GenerateResource.cache
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\bin\Release\Areopag.WPF.PowerCalc.exe.config
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\bin\Release\Areopag.WPF.PowerCalc.exe
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\bin\Release\Areopag.WPF.PowerCalc.pdb
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc_MarkupCompile.cache
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc_MarkupCompile.lref
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc.g.resources
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc.exe
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\Areopag.WPF.PowerCalc.pdb
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\New_head.g.cs
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc_1\obj\Release\New_head.baml

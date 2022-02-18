@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Areopag.WPF.PowerCalc_1.ViewModels.Base
+namespace Areopag.WPF.PowerCalc.ViewModels.Base
 {
     internal class ViewModel : INotifyPropertyChanged, IDisposable
     {
@@ -24,6 +24,14 @@ namespace Areopag.WPF.PowerCalc_1.ViewModels.Base
             OnPropertyChanged(PropertyName);
             return true;
         }
+        protected virtual bool Set2<T>(T field, T value, [CallerMemberName] string PropertyName = null)
+        {
+            if (Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(PropertyName);
+            return true;
+        }
+
         public void Dispose()
         {
             Dispose(true);

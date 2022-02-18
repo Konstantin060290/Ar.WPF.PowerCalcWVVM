@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Areopag.WPF.PowerCalc
     {
@@ -10,13 +13,14 @@ namespace Areopag.WPF.PowerCalc
         public double Engine_power { get; set; }
         public double Power_without_sc { get; set; }
         public double Aggregate_qapacity { get; set; }
-        public int Aggregate_P2 { get; set; }
-        public int Aggregate_P1 { get; set; }
+        public double Aggregate_P2 { get; set; }
+        public double Aggregate_P1 { get; set; }
         public double Safety_coefficient { get; set; }
         public double Heads_qantity { get; set; }
         public double Torque { get; set; }
         public double Aggr_vol_efficienty { get; set; }
         public double Aggr_hydr_efficienty { get; set; }
+        public double Aggr_mech_efficienty { get; set; }
 
         public double[] Electric_drive_powers_row = new double[] {
                 0.18,//0
@@ -128,38 +132,39 @@ namespace Areopag.WPF.PowerCalc
             return nearestValue;
         }
 
+        //Метод не используется
         public string Aggr_result(double ep, double hp, double pwsc, double sc, double pl_diam_calc, double pl_diam, double pr_force, double drive_force,
             double torque)
         {
             string res;
-            
+
             if (pwsc*sc <= Electric_drive_powers_row.Last())
             {
-                res = "Выходная мощность насоса =" + (hp).ToString("0.000") + " кВт;" + "\n" +
-                "Мощность агрегата без коэффициента запаса=" + (pwsc).ToString("0.000") + " кВт;" + "\n" +
-                "Коэффициент запаса=" + (sc).ToString() + ";" + "\n" +
-                "Требуемая мощность электродвигателя агрегата=" + (pwsc * sc).ToString("0.000") + " кВт;" + "\n" +
-                "Мощность, выбранного из ряда, электродвигателя=" + (ep).ToString() + " кВт;" + "\n" +
-                "Расчетный диаметр плунжера=" + (pl_diam_calc).ToString("0.000") + " мм;" + "\n" +
-                "Выбранный из ряда, диаметр плунжера=" + (pl_diam).ToString("0.0") + " мм;" + "\n" +
-                "Возникающее осевое усилие на плунжере=" + (pr_force).ToString("0.000") + " кгс;" + "\n" +
-                "Предполагаемый приводной механизм c усилием: "+ (drive_force).ToString("0.000")+ " кгс;"+"\n" +
-                "Требуемый момент на кривошипном валу (для одной насосной головки)=" +(torque).ToString("0.000")+ " Нм;" + "\n" +
+                res = "Выходная мощность насоса = " + (hp).ToString("0.000") + " кВт;" + "\n" + "\n"+
+                "Потребляемая мощность насоса = " + (pwsc).ToString("0.000") + " кВт;" + "\n" + "\n" +
+                "Коэффициент запаса = " + (sc).ToString() + ";" + "\n" + "\n" +
+                "Расчетная мощность электродвигателя агрегата = " + (pwsc * sc).ToString("0.000") + " кВт;" + "\n" + "\n" +
+                "Мощность, выбранного из ряда, электродвигателя = " + (ep).ToString() + " кВт;" + "\n" + "\n" +
+                "Расчетный диаметр плунжера = " + (pl_diam_calc).ToString("0.000") + " мм;" + "\n" + "\n" +
+                "Выбранный из ряда, диаметр плунжера = " + (pl_diam).ToString("0.0") + " мм;" + "\n" + "\n" +
+                "Возникающее осевое усилие на плунжере = " + (pr_force).ToString("0.000") + " кгс;" + "\n" + "\n" +
+                "Предполагаемый приводной механизм c усилием: " + (drive_force).ToString("0.000")+ " кгс;"+"\n" + "\n" +
+                "Требуемый момент на кривошипном валу (для одной насосной головки) = " +(torque).ToString("0.000")+ " Нм;" + "\n" + "\n" +
                 "\n" + "Расчет выполнен - " +DateTime.Now.ToString();
                 
             }
             else
             {
-                res = "Выходная мощность насоса =" + (hp).ToString("0.000") + " кВт;" + "\n" +
-                "Мощность агрегата без коэффициента запаса=" + (pwsc).ToString("0.000") + " кВт;" + "\n" +
-                "Коэффициент запаса=" + (sc).ToString() + ";" + "\n" +
-                "Требуемая мощность электродвигателя агрегата=" + (pwsc * sc).ToString("0.000") + " кВт;" + "\n" +
-                "Электродвигатели с мощностю более 250 кВт вне применяемой номенклатуры!"+"\n" +
-                "Расчетный диаметр плунжера=" + (pl_diam_calc).ToString("0.000") + " мм;" + "\n" +
-                "Выбранный из ряда, диаметр плунжера=" + (pl_diam).ToString("0.0") + " мм;" + "\n" +
-                "Возникающее осевое усилие на плунжере=" + (pr_force).ToString("0.000") + " кгс;" + "\n" +
-                "Предполагаемый приводной механизм с усилием: " + (drive_force).ToString("0.000") + " кгс;"+"\n" +
-                "Требуемый момент на кривошипном валу (для одной насосной головки)=" + (torque).ToString("0.000") + " Нм;" + "\n" +
+                res = "Выходная мощность насоса = " + (hp).ToString("0.000") + " кВт;" + "\n"+ "\n" +
+               "Потребляемая мощность насоса = " + (pwsc).ToString("0.000") + " кВт;" + "\n" + "\n" +
+                "Коэффициент запаса = " + (sc).ToString() + ";" + "\n" + "\n" +
+                "Расчетная мощность электродвигателя агрегата = " + (pwsc * sc).ToString("0.000") + " кВт;" + "\n" + "\n" +
+                "Электродвигатели с мощностю более 250 кВт вне применяемой номенклатуры!" +"\n" + "\n" +
+                "Расчетный диаметр плунжера = " + (pl_diam_calc).ToString("0.000") + " мм;" + "\n" + "\n" +
+                "Выбранный из ряда, диаметр плунжера = " + (pl_diam).ToString("0.0") + " мм;" + "\n" + "\n" +
+                "Возникающее осевое усилие на плунжере = " + (pr_force).ToString("0.000") + " кгс;" + "\n" + "\n" +
+                "Предполагаемый приводной механизм с усилием: " + (drive_force).ToString("0.000") + " кгс;"+"\n" + "\n" +
+                "Требуемый момент на кривошипном валу (для одной насосной головки) = " + (torque).ToString("0.000") + " Нм;" + "\n" + "\n" +
                 "\n" +"Расчет выполнен - " + DateTime.Now.ToString();
             }
             return res;

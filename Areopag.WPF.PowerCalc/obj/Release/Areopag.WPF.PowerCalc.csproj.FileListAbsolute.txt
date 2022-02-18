@@ -21,3 +21,4 @@ D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Release\Areopa
 D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Release\Areopag.WPF.PowerCalc.Properties.Resources.resources
 D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Release\Areopag.WPF.PowerCalc.csproj.AssemblyReference.cache
 D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Release\Areopag.WPF.PowerCalc.csproj.CoreCompileInputs.cache
+D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Release\Areopag.WPF.PowerCalc.csproj.SuggestedBindingRedirects.cache

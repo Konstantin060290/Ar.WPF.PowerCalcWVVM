@@ -20,3 +20,26 @@ D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Debug\Interop.
 D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Debug\Interop.Office2013CustomActionsLib.dll
 D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Debug\Interop.VSTOEE100.dll
 D:\Coding\Areopag\Areopag.WPF.PowerCalc\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.csproj.ResolveComReference.cache
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\Расчет объема ПГА.exe
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\Areopag.WPF.PowerCalc.exe.config
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\Areopag.WPF.PowerCalc.exe
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\Areopag.WPF.PowerCalc.pdb
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.csproj.AssemblyReference.cache
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.csproj.SuggestedBindingRedirects.cache
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Interop.ACTIVEXLib.dll
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Interop.Office2013CustomActionsLib.dll
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Interop.VSTOEE100.dll
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.csproj.ResolveComReference.cache
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\View\MainWindow.g.cs
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\App.g.cs
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc_Content.g.cs
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc_MarkupCompile.cache
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc_MarkupCompile.lref
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\View\MainWindow.baml
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.g.resources
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.Properties.Resources.resources
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.csproj.GenerateResource.cache
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.csproj.CoreCompileInputs.cache
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.exe
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.pdb

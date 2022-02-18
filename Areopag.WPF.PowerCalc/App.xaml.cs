@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Areopag.WPF.PowerCalc.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,9 @@ namespace Areopag.WPF.PowerCalc
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+        }
+
     }
 }

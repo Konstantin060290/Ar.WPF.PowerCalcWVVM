@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace Areopag.WPF.PowerCalc
     {
@@ -105,23 +101,11 @@ namespace Areopag.WPF.PowerCalc
                 {
                     greaterThanTarget = results.Where(i => i > targetNumber).Min();
                 }
-                //if (results.Any(ab => ab < targetNumber))
-                //{
-                //    lessThanTarget = results.Where(i => i < targetNumber).Max();
-                //}
 
                 if (lessThanTarget == 0)
                 {
                     nearestValue = greaterThanTarget;
                 }
-                //else if (greaterThanTarget == 0)
-                //{
-                //    nearestValue = lessThanTarget;
-                //}
-                //else if (targetNumber - lessThanTarget < greaterThanTarget - targetNumber)
-                //{
-                //    nearestValue = lessThanTarget;
-                //}
 
                 else
                 {
@@ -131,46 +115,7 @@ namespace Areopag.WPF.PowerCalc
             }
             return nearestValue;
         }
-
-        //Метод не используется
-        public string Aggr_result(double ep, double hp, double pwsc, double sc, double pl_diam_calc, double pl_diam, double pr_force, double drive_force,
-            double torque)
-        {
-            string res;
-
-            if (pwsc*sc <= Electric_drive_powers_row.Last())
-            {
-                res = "Выходная мощность насоса = " + (hp).ToString("0.000") + " кВт;" + "\n" + "\n"+
-                "Потребляемая мощность насоса = " + (pwsc).ToString("0.000") + " кВт;" + "\n" + "\n" +
-                "Коэффициент запаса = " + (sc).ToString() + ";" + "\n" + "\n" +
-                "Расчетная мощность электродвигателя агрегата = " + (pwsc * sc).ToString("0.000") + " кВт;" + "\n" + "\n" +
-                "Мощность, выбранного из ряда, электродвигателя = " + (ep).ToString() + " кВт;" + "\n" + "\n" +
-                "Расчетный диаметр плунжера = " + (pl_diam_calc).ToString("0.000") + " мм;" + "\n" + "\n" +
-                "Выбранный из ряда, диаметр плунжера = " + (pl_diam).ToString("0.0") + " мм;" + "\n" + "\n" +
-                "Возникающее осевое усилие на плунжере = " + (pr_force).ToString("0.000") + " кгс;" + "\n" + "\n" +
-                "Предполагаемый приводной механизм c усилием: " + (drive_force).ToString("0.000")+ " кгс;"+"\n" + "\n" +
-                "Требуемый момент на кривошипном валу (для одной насосной головки) = " +(torque).ToString("0.000")+ " Нм;" + "\n" + "\n" +
-                "\n" + "Расчет выполнен - " +DateTime.Now.ToString();
-                
-            }
-            else
-            {
-                res = "Выходная мощность насоса = " + (hp).ToString("0.000") + " кВт;" + "\n"+ "\n" +
-               "Потребляемая мощность насоса = " + (pwsc).ToString("0.000") + " кВт;" + "\n" + "\n" +
-                "Коэффициент запаса = " + (sc).ToString() + ";" + "\n" + "\n" +
-                "Расчетная мощность электродвигателя агрегата = " + (pwsc * sc).ToString("0.000") + " кВт;" + "\n" + "\n" +
-                "Электродвигатели с мощностю более 250 кВт вне применяемой номенклатуры!" +"\n" + "\n" +
-                "Расчетный диаметр плунжера = " + (pl_diam_calc).ToString("0.000") + " мм;" + "\n" + "\n" +
-                "Выбранный из ряда, диаметр плунжера = " + (pl_diam).ToString("0.0") + " мм;" + "\n" + "\n" +
-                "Возникающее осевое усилие на плунжере = " + (pr_force).ToString("0.000") + " кгс;" + "\n" + "\n" +
-                "Предполагаемый приводной механизм с усилием: " + (drive_force).ToString("0.000") + " кгс;"+"\n" + "\n" +
-                "Требуемый момент на кривошипном валу (для одной насосной головки) = " + (torque).ToString("0.000") + " Нм;" + "\n" + "\n" +
-                "\n" +"Расчет выполнен - " + DateTime.Now.ToString();
-            }
-            return res;
-        }
-
-   
+          
 
     }
 

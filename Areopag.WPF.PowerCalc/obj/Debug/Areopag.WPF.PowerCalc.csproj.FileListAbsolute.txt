@@ -45,3 +45,8 @@ D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.W
 D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.pdb
 D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\CommonServiceLocator.dll
 D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Debug\Areopag.WPF.PowerCalc.csproj.CopyComplete
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\MaterialDesignColors.dll
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\MaterialDesignColors.pdb
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\bin\Debug\MaterialDesignThemes.Wpf.xml

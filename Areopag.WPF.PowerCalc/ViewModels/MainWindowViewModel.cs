@@ -2,40 +2,32 @@
 using System.Windows;
 using Areopag.WPF.PowerCalc.Commands;
 using System.Diagnostics;
+using Areopag.WPF.PowerCalc.Models;
+using System.Data;
 
 namespace Areopag.WPF.PowerCalc.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        #region AggregateProperties
+        #region AggregateFields
         
         private double _Aggregate_qapacity;
         private double _Aggregate_P2;
-        private double _Aggregate_P1;
-        private double _Safety_coefficient;
-        private int _Heads_qantity;
-        private double _Aggr_vol_efficienty;
-        private double _Aggr_hydr_efficienty;
-        private double _Aggr_mech_efficienty;
+        private double _Aggregate_P1 = 1;
+        private double _Safety_coefficient = 1;
+        private int _Heads_qantity = 1;
+        private double _Aggr_vol_efficienty = 0.9;
+        private double _Aggr_hydr_efficienty = 0.9;
+        private double _Aggr_mech_efficienty = 0.8;
+        private double _Aggregate_Power;
         #endregion
 
-        #region Pump_driveProperties
-        private int _Stroke_length;
-        private int _Strokes;
+        #region Pump_driveFields
+        private int _Stroke_length = 60;
+        private int _Strokes = 100;
         #endregion
 
-        #region Pump_headProperties
-
-
-        #endregion
-
-        private string _Title = "Расчет параметров дозировочного агрегата";
-        public string Title
-        {
-            get => _Title;
-            set => Set(ref _Title, value);
-        }
-
+        //Свойства
         public double Aggregate_qapacity
         {
             get => _Aggregate_qapacity;
@@ -95,19 +87,26 @@ namespace Areopag.WPF.PowerCalc.ViewModels
             set => Set(ref _Strokes, value);
         }
 
-        //Команды
-
-        private RelayCommand _helloCommand;
-
-        public RelayCommand HelloCommand
+        private bool _EnterSC;
+        public bool EnterSC
         {
-            get
-            {
-                return _helloCommand ??
-                       (_helloCommand = new RelayCommand(obj => MessageBox.Show("Hello from command", "Тут вроде как заголовок")));
-            }
+            get => _EnterSC;
+            set => Set(ref _EnterSC, value);
+        }
+        public double Aggregate_Power
+        {
+            get => _Aggregate_Power;
+            set => Set(ref _Aggregate_Power, value);
+        }
+        private DataTable _Results;
+        public DataTable Results
+        {
+            get => _Results;
+            set => Set(ref _Results, value);
         }
 
+
+        //Команды
 
         private RelayCommand _ExitCommand;
 
@@ -134,10 +133,10 @@ namespace Areopag.WPF.PowerCalc.ViewModels
                        {
                            string about = "Данная программа позволяет выполнить расчет параметров дозировочных агрегатов по " + "\n" +
                             "ТУ 3632-003-46919837-2007.";
-                           string author = "Филюрин К.В.";
-                           string year_author = "2021";
-                           string version = "1.0.0.0";
-                           MessageBox.Show((about + "\n" + "\n" + "Автор - " + author + "\n" + "\n" + "Год выхода - " + year_author + "\n" + "\n" + "Версия - " + version),
+                           //string author = "Филюрин К.В.";
+                           string year_author = "2022";
+                           string version = "1.1.0.0";
+                           MessageBox.Show((about + /*"\n" + "\n" +"Автор - " + author + */"\n" + "\n" + "Год выхода - " + year_author + "\n" + "\n" + "Версия - " + version),
                            "Справка", MessageBoxButton.OK, MessageBoxImage.Information);
                        }
                        ));
@@ -219,9 +218,71 @@ namespace Areopag.WPF.PowerCalc.ViewModels
             }
         }
 
+        private RelayCommand _ExportToExcelCommand;
+        public RelayCommand ExportToExcelCommand
+        {
+            get
+            {
+                return _ExportToExcelCommand ??
+                       (_ExportToExcelCommand = new RelayCommand(obj =>
+                       {
 
+                           Calc C1 = new Calc();
+                       }
+                       ));
+            }
+        }
 
+        private RelayCommand _ResultCommand;
+        public RelayCommand ResultCommand
+        {
+            get
+            {
+                return _ResultCommand ??
+                       (_ResultCommand = new RelayCommand(obj =>
+                       {
+                           if(EnterSC == true)
+                           {
+                               Aggregate Ag1 = new Aggregate();
+                               Ag1.Aggregate_qapacity = Aggregate_qapacity;
+                               Ag1.Aggregate_P2 = Aggregate_P2;
+                               Ag1.Aggregate_P1 = Aggregate_P1;
+                               Ag1.Aggr_vol_efficienty = Aggr_vol_efficienty;
+                               Ag1.Aggr_mech_efficienty = Aggr_mech_efficienty;
+                               Ag1.Aggr_hydr_efficienty = Aggr_hydr_efficienty;
+                               Ag1.Heads_qantity = Heads_qantity;
+                               Ag1.Safety_coefficient = Safety_coefficient;
+                               Pump_drive Pd1 = new Pump_drive();
+                               Pd1.Strokes = Strokes;
+                               Pd1.Stroke_length = Stroke_length;
+                               Pump_head Ph1 = new Pump_head();
+                               Calc C1 = new Calc();
+                               C1.Aggr_power_calc_2(Ag1, Pd1, Ph1);
+                               Results = C1.CreateDataTable(Ag1, Pd1, Ph1);                        
+                           }
+                           else
+                           {
+                               Aggregate Ag1 = new Aggregate();
+                               Ag1.Aggregate_qapacity = Aggregate_qapacity;
+                               Ag1.Aggregate_P2 = Aggregate_P2;
+                               Ag1.Aggregate_P1 = Aggregate_P1;
+                               Ag1.Aggr_vol_efficienty = Aggr_vol_efficienty;
+                               Ag1.Aggr_mech_efficienty = Aggr_mech_efficienty;
+                               Ag1.Aggr_hydr_efficienty = Aggr_hydr_efficienty;
+                               Ag1.Heads_qantity = Heads_qantity;
+                               Ag1.Safety_coefficient = Safety_coefficient;
+                               Pump_drive Pd1 = new Pump_drive();
+                               Pd1.Strokes = Strokes;
+                               Pd1.Stroke_length = Stroke_length;
+                               Pump_head Ph1 = new Pump_head();
+                               Calc C1 = new Calc();
+                               C1.Aggr_power_calc(Ag1, Pd1, Ph1);
+                               Results = C1.CreateDataTable(Ag1, Pd1, Ph1);
+                           }
 
-
+                       }
+                       ));
+            }
+        }
     }
 }

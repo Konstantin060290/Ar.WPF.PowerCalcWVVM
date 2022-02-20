@@ -54,6 +54,9 @@
     <ApplicationIcon>5f919104a6d5c.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -75,7 +78,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastracture\Commands\Base\RelayCommand.cs" />
     <Compile Include="Models\Aggregate.cs" />
+    <Compile Include="Models\Calc.cs" />
     <Compile Include="Models\Pump_drive.cs" />
     <Compile Include="Models\Pump_head.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -199,8 +204,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastracture\Commands\Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,13 +24,6 @@ namespace Areopag.WPF.PowerCalc.ViewModels.Base
             OnPropertyChanged(PropertyName);
             return true;
         }
-        protected virtual bool Set2<T>(T field, T value, [CallerMemberName] string PropertyName = null)
-        {
-            if (Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(PropertyName);
-            return true;
-        }
 
         public void Dispose()
         {

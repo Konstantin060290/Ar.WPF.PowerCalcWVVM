@@ -9,7 +9,7 @@ namespace Areopag.WPF.PowerCalc.Models
     internal class Calc
     {
 
-        public void Aggr_power_calc(Aggregate Ag1, Pump_drive Pd1, Pump_head Ph1)
+        public void Aggr_power_calc(Aggregate Ag1, Pump_drive Pd1, Pump_head Ph1, bool ManualPlungerDiameter)
         {
 
             Ag1.Hydraulic_power = Ag1.Aggregate_qapacity * (Ag1.Aggregate_P2 - Ag1.Aggregate_P1) / 36.7 / 1000; //кВт
@@ -50,25 +50,33 @@ namespace Areopag.WPF.PowerCalc.Models
 
             Ag1.Engine_power = Aggregate.FindNearest((Ag1.Power_without_sc * Ag1.Safety_coefficient), Ag1.Electric_drive_powers_row);
             Ph1.Plunger_diameter_calc = 1000 * Math.Sqrt(4 * Ag1.Aggregate_qapacity / (Ag1.Heads_qantity * Ag1.Aggr_vol_efficienty * Pd1.Stroke_length * Pd1.Strokes * 60 * Math.PI));//в мм
-            Ph1.Plunger_diameter = Aggregate.FindNearest(Ph1.Plunger_diameter_calc, Ph1.Plungers_row);
+            if (ManualPlungerDiameter == false)
+            {
+                Ph1.Plunger_diameter = Aggregate.FindNearest(Ph1.Plunger_diameter_calc, Ph1.Plungers_row);
+            }
+            Ag1.Aggregate_calc_qapacity = (Math.PI*Math.Pow(Ph1.Plunger_diameter/10 , 2) / 4) * (Pd1.Stroke_length / 10) * (Pd1.Strokes * 60) * Ag1.Aggr_vol_efficienty * Ag1.Heads_qantity/1000; //л/ч
             Ph1.Pressure_force = Ag1.Aggregate_P2 * Math.PI * Math.Pow((Ph1.Plunger_diameter / 10), 2) / 4;//кГс
             Pd1.Max_force = Aggregate.FindNearest(Ph1.Pressure_force, Pd1.forces);
             Ag1.Torque = Ph1.Pressure_force * (Pd1.Stroke_length / 2) * 10 / 1000; //Нм
         }
-        public void Aggr_power_calc_2(Aggregate Ag1, Pump_drive Pd1, Pump_head Ph1)
+        public void Aggr_power_calc_2(Aggregate Ag1, Pump_drive Pd1, Pump_head Ph1, bool ManualPlungerDiameter)
         {
             Ag1.Hydraulic_power = Ag1.Aggregate_qapacity * (Ag1.Aggregate_P2 - Ag1.Aggregate_P1) / 36.7 / 1000; //кВт
             Ag1.Power_without_sc = Ag1.Aggregate_qapacity * (Ag1.Aggregate_P2 - Ag1.Aggregate_P1) / (Ag1.Aggr_vol_efficienty * Ag1.Aggr_hydr_efficienty * 36.7 * Ag1.Aggr_mech_efficienty) / 1000;//кВт
             Ag1.Engine_power = Aggregate.FindNearest((Ag1.Power_without_sc * Ag1.Safety_coefficient), Ag1.Electric_drive_powers_row);
-            Ph1.Plunger_diameter_calc = 1000 * Math.Sqrt(4 * Ag1.Aggregate_qapacity / (Ag1.Heads_qantity * Ag1.Aggr_vol_efficienty * Pd1.Stroke_length * Pd1.Strokes * 60 * Math.PI));//в мм
-            Ph1.Plunger_diameter = Aggregate.FindNearest(Ph1.Plunger_diameter_calc, Ph1.Plungers_row);
+            Ph1.Plunger_diameter_calc = 1000 * Math.Sqrt(4 * Ag1.Aggregate_qapacity / (Ag1.Heads_qantity * Ag1.Aggr_vol_efficienty * Pd1.Stroke_length * Pd1.Strokes * 60 * Math.PI));//в мм           
+            if (ManualPlungerDiameter == false)
+            {
+                Ph1.Plunger_diameter = Aggregate.FindNearest(Ph1.Plunger_diameter_calc, Ph1.Plungers_row);
+            }
+            Ag1.Aggregate_calc_qapacity = (Math.PI * Math.Pow(Ph1.Plunger_diameter / 10, 2) / 4) * (Pd1.Stroke_length / 10) * (Pd1.Strokes * 60) * Ag1.Aggr_vol_efficienty * Ag1.Heads_qantity / 1000; //л/ч
             Ph1.Pressure_force = Ag1.Aggregate_P2 * Math.PI * Math.Pow((Ph1.Plunger_diameter / 10), 2) / 4;//кГс
             Pd1.Max_force = Aggregate.FindNearest(Ph1.Pressure_force, Pd1.forces);
             Ag1.Torque = Ph1.Pressure_force * (Pd1.Stroke_length / 2) * 10 / 1000; //Нм
         }
 
 
-        public void Export_to_Excel(DataGrid ResultGrid)
+        public static void Export_to_Excel(DataGrid ResultGrid)
         {
 
             Excel.Application excel = new Excel.Application();
@@ -124,7 +132,7 @@ namespace Areopag.WPF.PowerCalc.Models
             dt.Rows.Add(input);
             DataRow qapacity = dt.NewRow();
             qapacity[0] = ++i;
-            qapacity[1] = "Номинальная подача агрегата";
+            qapacity[1] = "Желаемая номинальная подача агрегата";
             qapacity[2] = "Qа";
             qapacity[3] = Ag1.Aggregate_qapacity;
             qapacity[4] = "л/ч";
@@ -259,6 +267,23 @@ namespace Areopag.WPF.PowerCalc.Models
             vg[3] = Math.Round(((Math.PI * (Ph1.Plunger_diameter / 10) * (Ph1.Plunger_diameter / 10) / 4) * (Pd1.Stroke_length / 10)), 3);
             vg[4] = "см3";
             dt.Rows.Add(vg);
+            DataRow calced_qapacity = dt.NewRow();
+            calced_qapacity[0] = ++j;
+            calced_qapacity[1] = "Расчетная номинальная подача агрегата";
+            calced_qapacity[2] = "Qа";
+            calced_qapacity[3] = Math.Round(Ag1.Aggregate_calc_qapacity,3);
+            calced_qapacity[4] = "л/ч";
+            dt.Rows.Add(calced_qapacity);
+            if (Ag1.Heads_qantity > 1)
+            {
+                DataRow head_calc_qapacity = dt.NewRow();
+                head_calc_qapacity[0] = ++i;
+                head_calc_qapacity[1] = "Расчетная номинальная подача головки агрегата";
+                head_calc_qapacity[2] = "Qг";
+                head_calc_qapacity[3] = Math.Round(Ag1.Aggregate_calc_qapacity / Ag1.Heads_qantity, 3);
+                head_calc_qapacity[4] = "л/ч";
+                dt.Rows.Add(head_calc_qapacity);
+            }
             DataRow pl_force = dt.NewRow();
             pl_force[0] = ++j;
             pl_force[1] = "Возникающее осевое усилие на плунжере";

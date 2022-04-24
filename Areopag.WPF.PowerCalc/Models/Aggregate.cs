@@ -9,6 +9,7 @@ namespace Areopag.WPF.PowerCalc
         public double Engine_power { get; set; }
         public double Power_without_sc { get; set; }
         public double Aggregate_qapacity { get; set; }
+        public double Aggregate_calc_qapacity { get; set; }
         public double Aggregate_P2 { get; set; }
         public double Aggregate_P1 { get; set; }
         public double Safety_coefficient { get; set; }

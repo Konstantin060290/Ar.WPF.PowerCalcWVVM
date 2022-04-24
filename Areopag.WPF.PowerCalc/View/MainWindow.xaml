@@ -6,10 +6,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Areopag.WPF.PowerCalc.ViewModels"
         mc:Ignorable="d"        
-        Title="Расчет параметров дозировочного агрегата" Height="880" Width="880" WindowStartupLocation="CenterScreen">
+        Title="Расчет параметров дозировочного агрегата" Height="880" Width="880" WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
     <Window.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel/>        
     </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="87*"/>
@@ -28,7 +41,7 @@
 
         <Menu x:Name="Menu_bar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="auto" BorderBrush="Black">
             <MenuItem x:Name="MyMenu1" Header="Файл" Height="25" Background="#FFE5E5E5" BorderBrush="Black" Width="160" HorizontalAlignment="Center" VerticalAlignment="Center" TabIndex="17">
-                <MenuItem x:Name="Save_us_item" Header="Экспортировать результаты расчета в Excel" TabIndex="18"/>
+                <MenuItem x:Name="Save_us_item" Header="Экспортировать результаты расчета в Excel"  TabIndex="18" Click="Save_us_item_Click"/>
                 <MenuItem x:Name="About" Header="О программе" Command="{Binding AboutCommand}" TabIndex="19"/>
                 <MenuItem x:Name="Exit_menu_item" Header="Выход" Command="{Binding ExitCommand}" TabIndex="20"/>
             </MenuItem>
@@ -36,7 +49,7 @@
                 <MenuItem x:Name="PGA_volume_calc" Command="{Binding LaunchPGAApplicationCommand}" Header="Рассчитать требуемый агрегату объем ПГА" TabIndex="22"/>
             </MenuItem>
         </Menu>
-
+         
         <Grid Background="white" Margin="3,30,3,3" RenderTransformOrigin="0.622,0.552" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -81,13 +94,23 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    
                     <TextBox x:Name="P2_textbox" Text="{Binding Aggregate_P2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap" TabIndex="1"
                             Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
                     <TextBox x:Name="P1_textbox" TextWrapping="Wrap" Text="{Binding Aggregate_P1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="2" 
                             Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
-                    <TextBox x:Name="Qapacity_textbox" Text="{Binding Aggregate_qapacity, StringFormat=\{0:f1\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  TextWrapping="Wrap" RenderTransformOrigin="2.244,5.476" TabIndex="0"
-                            Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
-                    <Label x:Name="P2_label" Content="Давление на выходе P2, кгс/см2" FontStretch="SemiCondensed"
+                    <TextBox x:Name="Qapacity_textbox" TextWrapping="Wrap" RenderTransformOrigin="2.244,5.476" TabIndex="0"
+                            Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center">
+                        
+                        <TextBox.Text>
+                            <Binding Path="Aggregate_qapacity" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True"  Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Label x:Name="P2_label" Content="Давление на выходе P2, кгс/см2 (изб.)" FontStretch="SemiCondensed"
                            Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="1" Margin="5,5,5,5"/>
                     <Label x:Name="P1_label" Content="Давление на входе P1, кгс/см2 (абс.)"
                            Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="5,5,5,5"/>
@@ -113,18 +136,19 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label x:Name="vol_eff_label" Content="η объемный агрегата" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="5,5,5,5"/>
-                    <TextBox x:Name="Vol_eff_textbox" TextWrapping="Wrap" Text="{Binding Aggr_vol_efficienty, StringFormat=\{0:f1\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="3"
+                    <TextBox x:Name="Vol_eff_textbox" TextWrapping="Wrap" Text="{Binding Aggr_vol_efficienty, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="3"
                              Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
                     <Label x:Name="mech_eff_label" Content="η мех. агрегата" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="5,5,5,5"/>
-                    <TextBox x:Name="Mech_eff_textbox" TextWrapping="Wrap" Text="{Binding Aggr_mech_efficienty, StringFormat=\{0:f1\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="4"
+                    <TextBox x:Name="Mech_eff_textbox" TextWrapping="Wrap" Text="{Binding Aggr_mech_efficienty, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="4"
                              Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
                     <Label x:Name="hydr_eff_label" Content="η гидравл. агрегата" 
                            Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="5,5,5,5"/>
-                    <TextBox x:Name="Hydr_eff_textbox" Text="{Binding Aggr_hydr_efficienty, StringFormat=\{0:f1\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap" TabIndex="3"
+                    <TextBox x:Name="Hydr_eff_textbox" Text="{Binding Aggr_hydr_efficienty, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap" TabIndex="3"
                              Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="GB_construction" Header="Конструктивная реализация"  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="5,5,5,5" BorderBrush="Black">
+                <!--Конструктивная реализация-->
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -149,11 +173,50 @@
                             Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
                     <TextBox x:Name="Qantity_of_heads_textbox" TextWrapping="Wrap" TabIndex="6" Text="{Binding Heads_qantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                             Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
-                    <CheckBox x:Name="Enter_safety_coeff_checkbox" Content="Ручной ввод коэффициента запаса эДв" IsChecked ="{Binding EnterSC, Mode=TwoWay}" TabIndex="10" 
-                            Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
+                    <Label x:Name="Strokes_label" Content="Число двойных ходов плунжера в минуту"
+                            Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
+                    <TextBox x:Name="Strokes_textbox" TextWrapping="Wrap" TabIndex="8" Text="{Binding Strokes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
+                    <Label x:Name="Stroke_label" Content="Величина хода плунжера, мм" 
+                            Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
+                    <TextBox x:Name="Stroke_lenght_textbox" TextWrapping="Wrap" TabIndex="9" Text="{Binding Stroke_length, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
 
+                    <!--Ручной ввод диаметра плунжера-->
+                    <CheckBox x:Name="EnterPlungerDiameterCheckbox" Content="Ручной ввод диаметра плунжера" IsChecked ="{Binding EnterPlungerDiam, Mode=TwoWay}" TabIndex="10" 
+                    Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
+                    <Label x:Name="Pl_Diam_label" Content="Диаметр плунжера, мм" 
+                            Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="2,2,2,2">
+                        <Label.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EnterPlungerDiameterCheckbox, Path=IsChecked}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                    <TextBox x:Name="PlungerDiamTextbox" TextWrapping="Wrap" TabIndex="7" Text="{Binding ManualPlungerDiam, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Grid.Column="6" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EnterPlungerDiameterCheckbox, Path=IsChecked}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    
+                    <!--Ручной ввод коэффициента запаса-->
+                    <CheckBox x:Name="Enter_safety_coeff_checkbox" Content="Ручной ввод коэффициента запаса эДв" IsChecked ="{Binding EnterSC, Mode=TwoWay}" TabIndex="10" 
+                            Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
                     <Label x:Name="Safety_coeff_label" Content="Коэффициент запаса" 
-                            Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="5,5,5,5">
+                            Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="2,2,2,2">
                         <Label.Style>
                             <Style TargetType="{x:Type Label}">
                                 <Setter Property="Visibility" Value="Hidden"/>
@@ -166,7 +229,7 @@
                         </Label.Style>
                     </Label>
                     <TextBox x:Name="Safety_coeff_textbox" TextWrapping="Wrap" TabIndex="7" Text="{Binding Safety_coefficient, StringFormat=\{0:f1\}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            Grid.Column="6" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center">
+                            Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center">
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}">
                                 <Setter Property="Visibility" Value="Hidden"/>
@@ -177,25 +240,15 @@
                                 </Style.Triggers>
                             </Style>
                         </TextBox.Style>
-                    </TextBox>    
-
-                    <Label x:Name="Strokes_label" Content="Число двойных ходов плунжера в минуту"
-                            Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
-                    <TextBox x:Name="Strokes_textbox" TextWrapping="Wrap" TabIndex="8" Text="{Binding Strokes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
-                    <Label x:Name="Stroke_label" Content="Величина хода плунжера, мм" 
-                            Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" Grid.RowSpan="1" Margin="2,2,2,2"/>
-                    <TextBox x:Name="Stroke_lenght_textbox" TextWrapping="Wrap" TabIndex="-5" Text="{Binding Stroke_length, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" TextAlignment="Center"/>
+                    </TextBox>
                 </Grid>
             </GroupBox>
             <Button x:Name="Show_drives_row" Command ="{Binding ShowDrivesCommand}" Content="Показать ряд приводов" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" BorderBrush="Black" TabIndex="14"/>
             <Button x:Name="Show_pl_row_btn" Command="{Binding ShowPlungersCommand}" Content="Показать ряд плунжеров" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" BorderBrush="Black" TabIndex="13"/>
             <Button x:Name="ED_row_btn" Command ="{Binding ShowElectricDrivesCommand}" Content="Показать ряд эДв" Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="5,5,5,5" BorderBrush="Black" TabIndex="15"/>
-            <Button x:Name="Result_button" Content="Выполнить расчет" Command="{Binding ResultCommand}" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="5,5,5,5" TabIndex="12" FontSize="16" Background="#D3D3D3" BorderBrush="Black"/>
+            <Button x:Name="Result_button" Content="Выполнить расчет" Command="{Binding ResultCommand}" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="5,5,5,5" TabIndex="15" FontSize="16" Background="#D3D3D3" BorderBrush="Black"/>
             <DataGrid x:Name="ResultGrid" ItemsSource="{Binding Results}" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="6" Grid.RowSpan="12" Margin="5,14,5,5">
             </DataGrid>
-
         </Grid>
     </Grid>
 </Window>

@@ -4,14 +4,17 @@ using Areopag.WPF.PowerCalc.Commands;
 using System.Diagnostics;
 using Areopag.WPF.PowerCalc.Models;
 using System.Data;
+using System.Windows.Controls;
+using System;
+using System.ComponentModel;
 
 namespace Areopag.WPF.PowerCalc.ViewModels
 {
-    internal class MainWindowViewModel : ViewModel
+    internal class MainWindowViewModel : ViewModel, IDataErrorInfo
     {
         #region AggregateFields
         
-        private double _Aggregate_qapacity;
+        private string _Aggregate_qapacity = "0";
         private double _Aggregate_P2;
         private double _Aggregate_P1 = 1;
         private double _Safety_coefficient = 1;
@@ -27,12 +30,53 @@ namespace Areopag.WPF.PowerCalc.ViewModels
         private int _Strokes = 100;
         #endregion
 
-        //Свойства
-        public double Aggregate_qapacity
+        #region Validation
+        public string this[string columnName]
         {
-            get => _Aggregate_qapacity;
-            set => Set(ref _Aggregate_qapacity, value);
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "Aggregate_qapacity":
+                        if (Aggregate_qapacity.Contains("."))
+                        {
+                            error = "Используйте запятую в качестве десятичного разделителя.";
+                        }
+                        for (int i = 0; i < Aggregate_qapacity.Length; i++)
+                        {
+                            if (!Char.IsDigit(Aggregate_qapacity[i]) && !Aggregate_qapacity.Contains(","))
+                            {
+                                error = "Неверный символ ввода, используйте только числа.";
+                            }
+                        }
+                        break;
+                }
+                return error;
+            }
         }
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        #endregion
+
+        //Свойства
+        public string Aggregate_qapacity
+        {
+            get
+            {
+                return _Aggregate_qapacity;
+            }
+
+            set
+            {
+                Set(ref _Aggregate_qapacity, value);
+            }
+            
+        }
+
         public double Aggregate_P2
         {
             get => _Aggregate_P2;
@@ -93,6 +137,21 @@ namespace Areopag.WPF.PowerCalc.ViewModels
             get => _EnterSC;
             set => Set(ref _EnterSC, value);
         }
+
+        private bool _EnterPlungerDiam;
+        public bool EnterPlungerDiam
+        {
+            get => _EnterPlungerDiam;
+            set => Set(ref _EnterPlungerDiam, value);
+        }
+
+        private int _ManualPlungerDiam;
+        public int ManualPlungerDiam
+        {
+            get => _ManualPlungerDiam;
+            set => Set(ref _ManualPlungerDiam, value);
+        }
+
         public double Aggregate_Power
         {
             get => _Aggregate_Power;
@@ -133,10 +192,18 @@ namespace Areopag.WPF.PowerCalc.ViewModels
                        {
                            string about = "Данная программа позволяет выполнить расчет параметров дозировочных агрегатов по " + "\n" +
                             "ТУ 3632-003-46919837-2007.";
-                           //string author = "Филюрин К.В.";
-                           string year_author = "2022";
-                           string version = "1.1.0.0";
-                           MessageBox.Show((about + /*"\n" + "\n" +"Автор - " + author + */"\n" + "\n" + "Год выхода - " + year_author + "\n" + "\n" + "Версия - " + version),
+                           string author = "Филюрин К.В.";
+                           string version = "Текущая версия - 1.2.0 - 24.04.2022" + "\n" + 
+                           "В данной версии введены следующие изменения:" + "\n" +
+                           "1. Приложение переписано под паттерн MVVM;" + "\n" +
+                           "2. Добавлена возможность ввода диаметра плунжера;" + "\n" +
+                           "3. В таблицу результатов введена рассчетная номинальная подача агрегата, которая " +
+                           "рассчитывается из фактических значений диаметра плунжера,"  + "\n" +
+                           "коэффициента подачи и т.д." + "\n" +
+                           "4. В ряд приводных механизмов введен новый - АРХ8;" + "\n" +
+                           "5. В ряд плунжеров введен диаметр 90 мм.";
+
+                           MessageBox.Show((about + "\n" + "\n" + "Автор - " + author + "\n" + "\n" + version),
                            "Справка", MessageBoxButton.OK, MessageBoxImage.Information);
                        }
                        ));
@@ -218,21 +285,6 @@ namespace Areopag.WPF.PowerCalc.ViewModels
             }
         }
 
-        private RelayCommand _ExportToExcelCommand;
-        public RelayCommand ExportToExcelCommand
-        {
-            get
-            {
-                return _ExportToExcelCommand ??
-                       (_ExportToExcelCommand = new RelayCommand(obj =>
-                       {
-
-                           Calc C1 = new Calc();
-                       }
-                       ));
-            }
-        }
-
         private RelayCommand _ResultCommand;
         public RelayCommand ResultCommand
         {
@@ -241,10 +293,17 @@ namespace Areopag.WPF.PowerCalc.ViewModels
                 return _ResultCommand ??
                        (_ResultCommand = new RelayCommand(obj =>
                        {
-                           if(EnterSC == true)
+                           if (EnterSC == true)
                            {
                                Aggregate Ag1 = new Aggregate();
-                               Ag1.Aggregate_qapacity = Aggregate_qapacity;
+                               try
+                               {
+                                   Ag1.Aggregate_qapacity = Convert.ToDouble(Aggregate_qapacity);
+                               }
+                               catch
+                               {
+                                   Ag1.Aggregate_qapacity = 0;
+                               }                               
                                Ag1.Aggregate_P2 = Aggregate_P2;
                                Ag1.Aggregate_P1 = Aggregate_P1;
                                Ag1.Aggr_vol_efficienty = Aggr_vol_efficienty;
@@ -256,14 +315,25 @@ namespace Areopag.WPF.PowerCalc.ViewModels
                                Pd1.Strokes = Strokes;
                                Pd1.Stroke_length = Stroke_length;
                                Pump_head Ph1 = new Pump_head();
+                               if (EnterPlungerDiam == true)
+                               {
+                                   Ph1.Plunger_diameter = ManualPlungerDiam;
+                               }
                                Calc C1 = new Calc();
-                               C1.Aggr_power_calc_2(Ag1, Pd1, Ph1);
+                               C1.Aggr_power_calc_2(Ag1, Pd1, Ph1, EnterPlungerDiam);
                                Results = C1.CreateDataTable(Ag1, Pd1, Ph1);                        
                            }
                            else
                            {
                                Aggregate Ag1 = new Aggregate();
-                               Ag1.Aggregate_qapacity = Aggregate_qapacity;
+                               try
+                               {
+                                   Ag1.Aggregate_qapacity = Convert.ToDouble(Aggregate_qapacity);
+                               }
+                               catch
+                               {
+                                   Ag1.Aggregate_qapacity = 0;
+                               }
                                Ag1.Aggregate_P2 = Aggregate_P2;
                                Ag1.Aggregate_P1 = Aggregate_P1;
                                Ag1.Aggr_vol_efficienty = Aggr_vol_efficienty;
@@ -275,11 +345,14 @@ namespace Areopag.WPF.PowerCalc.ViewModels
                                Pd1.Strokes = Strokes;
                                Pd1.Stroke_length = Stroke_length;
                                Pump_head Ph1 = new Pump_head();
+                               if (EnterPlungerDiam == true)
+                               {
+                                   Ph1.Plunger_diameter = ManualPlungerDiam;
+                               }
                                Calc C1 = new Calc();
-                               C1.Aggr_power_calc(Ag1, Pd1, Ph1);
+                               C1.Aggr_power_calc(Ag1, Pd1, Ph1, EnterPlungerDiam);
                                Results = C1.CreateDataTable(Ag1, Pd1, Ph1);
                            }
-
                        }
                        ));
             }

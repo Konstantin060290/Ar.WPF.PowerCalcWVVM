@@ -46,6 +46,7 @@ namespace Areopag.WPF.PowerCalc
                     70,
                     75,
                     80,
+                    90,
                     100,
                     110,
         };

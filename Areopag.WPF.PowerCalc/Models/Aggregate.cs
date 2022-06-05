@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Areopag.WPF.PowerCalc
@@ -18,6 +19,7 @@ namespace Areopag.WPF.PowerCalc
         public double Aggr_vol_efficienty { get; set; }
         public double Aggr_hydr_efficienty { get; set; }
         public double Aggr_mech_efficienty { get; set; }
+        public string DriveName { get; set; } 
 
         public double[] Electric_drive_powers_row = new double[] {
                 0.18,//0
@@ -116,7 +118,6 @@ namespace Areopag.WPF.PowerCalc
             }
             return nearestValue;
         }
-          
 
     }
 

@@ -190,10 +190,18 @@ namespace Areopag.WPF.PowerCalc.ViewModels
                 return _AboutCommand ??
                        (_AboutCommand = new RelayCommand(obj =>
                        {
-                           string about = "Данная программа позволяет выполнить расчет параметров дозировочных агрегатов по " + "\n" +
+                           string about = "Данное программное обеспечение позволяет выполнить расчет параметров дозировочных агрегатов по " + "\n" +
                             "ТУ 3632-003-46919837-2007.";
-                           string author = "Филюрин К.В.";
-                           string version = "Текущая версия - 1.2.0 - 24.04.2022" + "\n" + 
+                           string author = "kfilyurin@gmail.com";
+                           string version =
+                           "Текущая версия - 1.3.0 - 05.06.2022" + "\n" +
+                           "В данной версии введены следующие изменения:" + "\n" +
+                           "1. Детализирован ряд приводных механизмов;" + "\n" +
+                           "2. Добавлен функционал автоподбора приводного механизма." + "\n" +
+                           "\n" +
+                           
+                           "История предыдущих версий:"+ "\n" +
+                           "Версия 1.2.0 - 24.04.2022" + "\n" + 
                            "В данной версии введены следующие изменения:" + "\n" +
                            "1. Приложение переписано под паттерн MVVM;" + "\n" +
                            "2. Добавлена возможность ввода диаметра плунжера;" + "\n" +
@@ -252,12 +260,17 @@ namespace Areopag.WPF.PowerCalc.ViewModels
                        (_ShowDrivesCommand = new RelayCommand(obj =>
                        {
                            Pump_drive Pd1 = new Pump_drive();
-                           string all = "";
-                           for (int i = 0; i < Pd1.drives.Length; i++)
+                           string all = "Через дробь указаны:" + "\r\n" +
+                           "Наименование семейства привода / предельное усилие на ползуне, кгс / величина хода ползуна, мм / " + "\r\n" +"максимальное количество головок в агрегате (построенного на базе привода (-ов)) /" + "\r\n" +
+                           "предельное число двойных ходов в минуту." + "\r\n" + "\r\n";
+                           foreach (var drives in Pd1._drives)
                            {
-                               all += string.Concat(Pd1.drives[i] + " (F=" + Pd1.forces[i].ToString() + " кгс, величина хода: " + Pd1.stroke_lengthes[i].ToString() + " мм);" + "\r\n" + "\r\n");
+                               all += string.Concat(drives.Key + " / " + drives.Value[0] + " кгс / " + drives.Value[1] + " мм / " + 
+                                   + drives.Value[2] + " шт. / " + drives.Value[3] +" мин. -1;" + "\r\n" + "\r\n");
                            }
-                           MessageBox.Show(all, "Ряд применяемых приводов и их предельные усилия на ползуне", MessageBoxButton.OK, MessageBoxImage.Information);
+                           MessageBox.Show(all, "Ряд применяемых приводов и их технические характеристики", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
                        }
                        ));
             }

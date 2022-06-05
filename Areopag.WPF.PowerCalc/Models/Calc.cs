@@ -56,7 +56,7 @@ namespace Areopag.WPF.PowerCalc.Models
             }
             Ag1.Aggregate_calc_qapacity = (Math.PI*Math.Pow(Ph1.Plunger_diameter/10 , 2) / 4) * (Pd1.Stroke_length / 10) * (Pd1.Strokes * 60) * Ag1.Aggr_vol_efficienty * Ag1.Heads_qantity/1000; //л/ч
             Ph1.Pressure_force = Ag1.Aggregate_P2 * Math.PI * Math.Pow((Ph1.Plunger_diameter / 10), 2) / 4;//кГс
-            Pd1.Max_force = Aggregate.FindNearest(Ph1.Pressure_force, Pd1.forces);
+            Ag1.DriveName = Pd1.FindDrive(Ph1.Pressure_force, Pd1.Stroke_length, Ag1.Heads_qantity, Pd1.Strokes, Pd1._drives);
             Ag1.Torque = Ph1.Pressure_force * (Pd1.Stroke_length / 2) * 10 / 1000; //Нм
         }
         public void Aggr_power_calc_2(Aggregate Ag1, Pump_drive Pd1, Pump_head Ph1, bool ManualPlungerDiameter)
@@ -71,7 +71,7 @@ namespace Areopag.WPF.PowerCalc.Models
             }
             Ag1.Aggregate_calc_qapacity = (Math.PI * Math.Pow(Ph1.Plunger_diameter / 10, 2) / 4) * (Pd1.Stroke_length / 10) * (Pd1.Strokes * 60) * Ag1.Aggr_vol_efficienty * Ag1.Heads_qantity / 1000; //л/ч
             Ph1.Pressure_force = Ag1.Aggregate_P2 * Math.PI * Math.Pow((Ph1.Plunger_diameter / 10), 2) / 4;//кГс
-            Pd1.Max_force = Aggregate.FindNearest(Ph1.Pressure_force, Pd1.forces);
+            Ag1.DriveName = Pd1.FindDrive(Ph1.Pressure_force, Pd1.Stroke_length, Ag1.Heads_qantity, Pd1.Strokes, Pd1._drives);
             Ag1.Torque = Ph1.Pressure_force * (Pd1.Stroke_length / 2) * 10 / 1000; //Нм
         }
 
@@ -293,10 +293,10 @@ namespace Areopag.WPF.PowerCalc.Models
             dt.Rows.Add(pl_force);
             DataRow drive_choosen = dt.NewRow();
             drive_choosen[0] = ++j;
-            drive_choosen[1] = "Предполагаемый приводной механизм c усилием";
+            drive_choosen[1] = "Предполагаемый приводной механизм(-ы)";
             drive_choosen[2] = "-";
-            drive_choosen[3] = Pd1.Max_force;
-            drive_choosen[4] = "кгс";
+            drive_choosen[3] = Ag1.DriveName;
+            drive_choosen[4] = "-";
             dt.Rows.Add(drive_choosen);
             DataRow torque = dt.NewRow();
             torque[0] = ++j;

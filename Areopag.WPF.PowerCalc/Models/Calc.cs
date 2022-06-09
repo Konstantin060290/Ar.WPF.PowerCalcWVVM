@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Data;
+using System.Windows.Forms;
+using System.IO;
 
 namespace Areopag.WPF.PowerCalc.Models
 {
@@ -58,6 +60,7 @@ namespace Areopag.WPF.PowerCalc.Models
             Ph1.Pressure_force = Ag1.Aggregate_P2 * Math.PI * Math.Pow((Ph1.Plunger_diameter / 10), 2) / 4;//кГс
             Ag1.DriveName = Pd1.FindDrive(Ph1.Pressure_force, Pd1.Stroke_length, Ag1.Heads_qantity, Pd1.Strokes, Pd1._drives);
             Ag1.Torque = Ph1.Pressure_force * (Pd1.Stroke_length / 2) * 10 / 1000; //Нм
+            CreateLog(Ag1);
         }
         public void Aggr_power_calc_2(Aggregate Ag1, Pump_drive Pd1, Pump_head Ph1, bool ManualPlungerDiameter)
         {
@@ -73,10 +76,11 @@ namespace Areopag.WPF.PowerCalc.Models
             Ph1.Pressure_force = Ag1.Aggregate_P2 * Math.PI * Math.Pow((Ph1.Plunger_diameter / 10), 2) / 4;//кГс
             Ag1.DriveName = Pd1.FindDrive(Ph1.Pressure_force, Pd1.Stroke_length, Ag1.Heads_qantity, Pd1.Strokes, Pd1._drives);
             Ag1.Torque = Ph1.Pressure_force * (Pd1.Stroke_length / 2) * 10 / 1000; //Нм
+            CreateLog(Ag1);
         }
 
 
-        public static void Export_to_Excel(DataGrid ResultGrid)
+        public static void Export_to_Excel(System.Windows.Controls.DataGrid ResultGrid)
         {
 
             Excel.Application excel = new Excel.Application();
@@ -107,7 +111,7 @@ namespace Areopag.WPF.PowerCalc.Models
 
             }
         }
-
+        #region CreateTable
         public System.Data.DataTable CreateDataTable(Aggregate Ag1, Pump_drive Pd1, Pump_head Ph1)
         {
             System.Data.DataTable dt = new System.Data.DataTable("ResultTable");
@@ -271,7 +275,7 @@ namespace Areopag.WPF.PowerCalc.Models
             calced_qapacity[0] = ++j;
             calced_qapacity[1] = "Расчетная номинальная подача агрегата";
             calced_qapacity[2] = "Qа";
-            calced_qapacity[3] = Math.Round(Ag1.Aggregate_calc_qapacity,3);
+            calced_qapacity[3] = Math.Round(Ag1.Aggregate_calc_qapacity, 3);
             calced_qapacity[4] = "л/ч";
             dt.Rows.Add(calced_qapacity);
             if (Ag1.Heads_qantity > 1)
@@ -316,6 +320,26 @@ namespace Areopag.WPF.PowerCalc.Models
 
             return dt;
 
+        }
+        #endregion
+
+        public static void CreateLog(Aggregate Ag1)
+        {
+            string logname = SystemInformation.UserName + " " + Ag1.Aggregate_qapacity + "-" + Ag1.Aggregate_P2 + "-" + Ag1.Heads_qantity +
+                " " +(DateTime.Now.Hour * 60 * 60 + DateTime.Now.Minute * 60 + DateTime.Now.Second).ToString();
+            string folder = "logs\\";
+            string path = folder + logname + ".txt";
+            try
+            {
+                Directory.CreateDirectory(folder);
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                }
+            }
+            catch
+            {
+
+            }
         }
 
     }

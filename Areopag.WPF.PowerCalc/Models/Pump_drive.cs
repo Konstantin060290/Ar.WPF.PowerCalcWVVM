@@ -13,11 +13,6 @@ namespace Areopag.WPF.PowerCalc
         public double Max_force { get; set; }
         public double Drive_mech_efficiency { get; set; }
 
-
-        //public string[] drives = { "АРХ0", "АРХ3", "АР22/АР31", "АР41/АР51", "АР24/АР34", "АР44/АР54", "АР26", "АР46/АР56", "АР45/АР55", "АР47/АР57", "АР48/АР58", "АМГ17(23)" };
-        //public double[] forces = { 200, 387, 1256, 1256, 2000, 1250, 3500, 2500, 1538, 800, 2300, 4000 };
-        //public double[] stroke_lengthes = { 16, 32, 60, 60, 60, 60, 60, 60, 60, 60, 60, 40 };
-
         //предельное усилие, кгс,
         //величина хода, мм,
         //максимальное количество головок в агрегате на базе данного привода,
@@ -94,6 +89,8 @@ namespace Areopag.WPF.PowerCalc
 
         static List<int> AMGM17_220x2 = new List<int>()
         { 4000, 40, 6, 220};
+        static List<int> AMG48_300 = new List<int>()
+        { 4000, 90, 3, 300};
 
         public Dictionary<string, List<int>> _drives = new Dictionary<string, List<int>>()
         {
@@ -120,7 +117,8 @@ namespace Areopag.WPF.PowerCalc
         {"АМГ23 (300 ход./мин. max)", AMG23_300},
         {"2хАМГ23 (300 ход./мин. max)", AMG23_300x2},
         {"АМГМ17 (220 ход./мин. max)", AMGM17_220},
-        {"2хАМГМ17 (220 ход./мин. max)", AMGM17_220x2}
+        {"2хАМГМ17 (220 ход./мин. max)", AMGM17_220x2},
+        {"АМГ48 (300 ход./мин. max)", AMG48_300},
         };
         public string FindDrive(double force, double stroke, double headsquantity, int strokes, Dictionary<string, List<int>> dict)
         {
@@ -131,20 +129,20 @@ namespace Areopag.WPF.PowerCalc
                 for (int i = 0; i < dict.Count; i++)
                 {
                     var item = dict.ElementAt(i);
-                    if (Convert.ToUInt32(force)*0.95 <= item.Value[0]
+                    if    (Convert.ToUInt32(force)*0.95 <= item.Value[0]
                         && Convert.ToUInt32(stroke) == item.Value[1]
                         && Convert.ToUInt32(headsquantity) <= item.Value[2]
                         && strokes == item.Value[3])
                             {
                                 iterator++;
-                                if(iterator == 1)
-                                    {
-                                        drivename = item.Key;
-                                    }
+                                if (iterator == 1)
+                                {
+                                    drivename = item.Key + "\n";
+                                }
                                 else
-                                    {
-                                        drivename += " | " + item.Key;
-                                    }                                
+                                {
+                                    drivename += item.Key + "\n";
+                                }
                             }
                     if (force == 0)
                     {
@@ -165,11 +163,11 @@ namespace Areopag.WPF.PowerCalc
                                 iterator++;
                                 if (iterator == 1)
                                 {
-                                    drivename = item.Key;
+                                    drivename = item.Key + "\n";
                                 }
                                 else
                                 {
-                                    drivename += " | " + item.Key;
+                                    drivename += item.Key + "\n";
                                 }
                             }
                     if (force == 0)
@@ -178,7 +176,10 @@ namespace Areopag.WPF.PowerCalc
                     }
                 }
             }
-
+            if (drivename!= "Не найден подходящий приводной механизм")
+            {
+                drivename = drivename.Substring(0, drivename.Length - 1);
+            }
             return drivename;
         }
 

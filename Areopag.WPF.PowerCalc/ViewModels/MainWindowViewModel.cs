@@ -7,6 +7,7 @@ using System.Data;
 using System.Windows.Controls;
 using System;
 using System.ComponentModel;
+using Areopag.WPF.PowerCalc.View;
 
 namespace Areopag.WPF.PowerCalc.ViewModels
 {
@@ -164,7 +165,6 @@ namespace Areopag.WPF.PowerCalc.ViewModels
             set => Set(ref _Results, value);
         }
 
-
         //Команды
 
         private RelayCommand _ExitCommand;
@@ -241,6 +241,56 @@ namespace Areopag.WPF.PowerCalc.ViewModels
             }
         }
 
+        private RelayCommand _ShowDrivesCommand;
+        public RelayCommand ShowDrivesCommand
+        {
+            get
+            {
+                return _ShowDrivesCommand ??
+                       (_ShowDrivesCommand = new RelayCommand(obj =>
+                       {
+                           System.Data.DataTable dt = new System.Data.DataTable("DrivesTable");
+
+                           DataColumn id = new DataColumn("Id", typeof(int));
+                           DataColumn name = new DataColumn("Наименование серии привода", typeof(string));
+                           DataColumn stroke = new DataColumn("Величина хода ползуна (мм)", typeof(int));
+                           DataColumn h_qty = new DataColumn("Максиальное число головок в агрегате на базе привода (шт)", typeof(int));
+                           DataColumn force = new DataColumn("Предельное усилие на ползуне (кгс)", typeof(int));
+                           DataColumn strokes = new DataColumn("Предельное число ходов в мин", typeof(int));
+
+                           dt.Columns.Add(id);
+                           dt.Columns.Add(name);
+                           dt.Columns.Add(stroke);
+                           dt.Columns.Add(h_qty);
+                           dt.Columns.Add(force);
+                           dt.Columns.Add(strokes);
+
+                           Pump_drive pd1 = new Pump_drive();
+
+                           int i = 0;
+
+                           foreach (var drive in pd1._drives)
+                           {
+                               DataRow row = dt.NewRow();
+                               row[0] = i;
+                               row[1] = drive.Key;//name
+                               row[2] = drive.Value[1];//stroke
+                               row[3] = drive.Value[2];//heads quantity
+                               row[4] = drive.Value[0];//force
+                               row[5] = drive.Value[3];//strokes
+                               dt.Rows.Add(row);
+                               i++;
+                           }
+                           DrivesWindowViewModel viewModel = new DrivesWindowViewModel();
+                           viewModel.AboutDrives = dt;
+                           DrivesWindow drivesWindow = new DrivesWindow();
+                           drivesWindow.DataContext = viewModel;
+                           drivesWindow.Show();
+                       }
+                       ));
+            }
+        }
+
         private RelayCommand _ShowElectricDrivesCommand;
 
         public RelayCommand ShowElectricDrivesCommand
@@ -257,31 +307,7 @@ namespace Areopag.WPF.PowerCalc.ViewModels
             }
         }
 
-        private RelayCommand _ShowDrivesCommand;
 
-        public RelayCommand ShowDrivesCommand
-        {
-            get
-            {
-                return _ShowDrivesCommand ??
-                       (_ShowDrivesCommand = new RelayCommand(obj =>
-                       {
-                           Pump_drive Pd1 = new Pump_drive();
-                           string all = "Через дробь указаны:" + "\r\n" +
-                           "Наименование семейства привода / предельное усилие на ползуне, кгс / величина хода ползуна, мм / " + "\r\n" +"максимальное количество головок в агрегате (построенного на базе привода (-ов)) /" + "\r\n" +
-                           "предельное число двойных ходов в минуту." + "\r\n" + "\r\n";
-                           foreach (var drives in Pd1._drives)
-                           {
-                               all += string.Concat(drives.Key + " / " + drives.Value[0] + " кгс / " + drives.Value[1] + " мм / " + 
-                                   + drives.Value[2] + " шт. / " + drives.Value[3] +" мин. -1;" + "\r\n" + "\r\n");
-                           }
-                           MessageBox.Show(all, "Ряд применяемых приводов и их технические характеристики", MessageBoxButton.OK, MessageBoxImage.Information);
-
-
-                       }
-                       ));
-            }
-        }
         private RelayCommand _LaunchPGAApplicationCommand;
         public RelayCommand LaunchPGAApplicationCommand
         {

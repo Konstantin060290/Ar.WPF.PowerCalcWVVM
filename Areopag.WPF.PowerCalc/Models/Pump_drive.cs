@@ -63,9 +63,6 @@ namespace Areopag.WPF.PowerCalc
         static List<int> AP47AP57_70 = new List<int>()
         { 800, 60, 12, 70};
 
-        static List<int> AP47AP57_100 = new List<int>()
-        { 800, 60, 12, 100};
-
         static List<int> AP47AP57_144 = new List<int>()
         { 800, 60, 12, 144};
 
@@ -109,7 +106,6 @@ namespace Areopag.WPF.PowerCalc
         {"АР46/АР56 (140 ход./мин. max)", AP46AP56_140},
         {"АР45/АР55 (120 ход./мин. max)", AP45AP55_120},
         {"АР47/АР57 (70 ход./мин.)", AP47AP57_70},
-        {"АР47/АР57 (100 ход./мин.)", AP47AP57_100},
         {"АР47/АР57 (144 ход./мин.)", AP47AP57_144},
         {"АР48/АР58 (100 ход./мин.)", AP48AP58_100},
         {"АР48/АР58 (120 ход./мин.)", AP48AP58_120},

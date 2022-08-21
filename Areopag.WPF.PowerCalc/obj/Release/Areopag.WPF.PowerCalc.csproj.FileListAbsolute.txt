@@ -52,3 +52,5 @@ D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Release\Areopag
 D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Release\Areopag.WPF.PowerCalc.csproj.CopyComplete
 D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Release\Areopag.WPF.PowerCalc.exe
 D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Release\Areopag.WPF.PowerCalc.pdb
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Release\View\DrivesWindow.g.cs
+D:\Coding\Areopag\Ar.WPF.PowerCalcWVVM\Areopag.WPF.PowerCalc\obj\Release\View\DrivesWindow.baml
